@@ -1,31 +1,36 @@
 services:
   catalogue:
-    build:
-      dockerfile: catalogue.Dockerfile
+    build: ./catalogue
     image: ismail7337/catalogue:1.0.0
     container_name: catalogue
     depends_on:
     - mongodb
 
   user:
-    build:
-      dockerfile: user.Dockerfile
+    build: ./user
     image: ismail7337/user:1.0.0
     container_name: user
     depends_on:
     - redis
 
+  frontend:
+    build: ./frontend
+    image: ismail7337/frontend:1.0.0
+    container_name: frontend
+    ports:
+    - "80:80"
+    depends_on:
+    - catalogue
+    - user
+
   mongodb:
-    build:
-      dockerfile: mongodb.Dockerfile #it moves to mongodb directory
+    build: ./mongodb
     image: ismail7337/mongo:1.0.0 #docker build -t ismail7337/mongo:1.0.0
     container_name: mongodb
 
   redis:
-    build:
-      dockerfile: redis.Dockerfile
-    image: ismail7337/redis:1.0.0
-    container_name: user
+    image: redia:7.0
+    container_name: redis
 
 networks:
   default:
