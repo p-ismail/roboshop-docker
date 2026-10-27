@@ -6,11 +6,26 @@ services:
     container_name: catalogue
     depends_on:
     - mongodb
+
+  user:
+    build:
+      dockerfile: user.Dockerfile
+    image: ismail7337/user:1.0.0
+    container_name: user
+    depends_on:
+    - redis
+
   mongodb:
     build:
       dockerfile: mongodb.Dockerfile #it moves to mongodb directory
     image: ismail7337/mongo:1.0.0 #docker build -t ismail7337/mongo:1.0.0
     container_name: mongodb
+
+  redis:
+    build:
+      dockerfile: redis.Dockerfile
+    image: ismail7337/redis:1.0.0
+    container_name: user
 
 networks:
   default:
