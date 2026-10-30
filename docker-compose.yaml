@@ -20,6 +20,13 @@ services:
     depends_on:
     - redis
 
+  shipping:
+    build: ./shipping
+    images: ismail7337/shipping:1.0.0
+    container_name: shipping
+    depends_on:
+    - mysql
+
   frontend:
     build: ./frontend
     image: ismail7337/frontend:1.0.0
@@ -30,6 +37,7 @@ services:
     - catalogue
     - user
     - cart
+    - shipping
 
   mongodb:
     build: ./mongodb
